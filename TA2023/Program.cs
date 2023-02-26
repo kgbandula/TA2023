@@ -2,6 +2,7 @@
 //Open the ChromeBrowser
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Internal;
 
 IWebDriver driver = new ChromeDriver();
 driver.Manage().Window.Maximize();
@@ -38,6 +39,7 @@ else
 //20230223
 //Create a new Time and Material
 
+
 //Navigate to time and material
 IWebElement administrationDropdown = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));  
 administrationDropdown.Click();
@@ -65,7 +67,7 @@ Thread.Sleep(2000);
 //input description into descriptionTextBox
 IWebElement descriptionTextbox = driver.FindElement(By.Id("Description"));
 descriptionTextbox.SendKeys("TA2023");
-Thread.Sleep(5000);
+Thread.Sleep(3000);
 
 //input price into priceperunitTextbox
 IWebElement PricePerUnitTextbox = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
@@ -91,5 +93,73 @@ else
     Console.WriteLine("New record has not been created");
 }
 
-//Homework
+//Edit and Delete functions
+
+//Edit a time and material
+
+//Click on Last Edit button
+IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
+editButton.Click();
+
+//select material option from typecode dropdown list
+IWebElement typeCodeDropdown = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[1]"));
+typeCodeDropdown.Click();
+Thread.Sleep(2000);
+
+IWebElement materialOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[1]"));
+materialOption.Click();
+Thread.Sleep(5000);
+
+//Edit code txtbox
+IWebElement codeTxtbox = driver.FindElement(By.Id("Code"));
+codeTxtbox.Clear();
+codeTxtbox.SendKeys("TA20230223");
+Thread.Sleep(2000);
+
+//edit description txtbox
+IWebElement descriptionTxtbox = driver.FindElement(By.Id("Description"));
+descriptionTxtbox.Clear();
+descriptionTxtbox.SendKeys("TA20230223New");
+Thread.Sleep(3000);
+
+//Edit price per unit
+IWebElement pricePerUnit = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+pricePerUnit.Clear();
+pricePerUnit.SendKeys("80");
+Thread.Sleep(3000);
+
+
+//Click on saveButton
+IWebElement saveButtn = driver.FindElement(By.Id("SaveButton"));
+saveButtn.Click();
+Thread.Sleep(3000);
+
+//check if new edit material saved
+IWebElement gotoLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+gotoLastPageButton.Click();
+
+IWebElement newEditCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[Last()]/td[1]"));
+
+
+if (newEditCode.Text == "TA20230223")
+{
+    Console.WriteLine("Successfully Edited");
+}
+else
+{
+    Console.WriteLine("Record was not edited");
+}
+
+
+//Delete a time and material
+
+//Find the last row that should be deleted
+IWebElement deleteButton = driver.FindElement(By.XPath("///*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[7]/td[Last()]/a[2]"));
+deleteButton.Click ():
+
+//Navigate to pop up window
+
+
+
+
 
